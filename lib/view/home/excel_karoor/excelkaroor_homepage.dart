@@ -46,7 +46,7 @@ class ExcelKaroorHOmeScreen extends StatelessWidget {
                                 const Padding(
                                   padding: EdgeInsets.only(top: 02),
                                   child: Text(
-                                      'Most trusted school for experienced tutoring',
+                                      'Educate them with knowledge, love and care',
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: cBlack,
@@ -107,7 +107,7 @@ class ExcelKaroorHOmeScreen extends StatelessWidget {
                               const Padding(
                                 padding: EdgeInsets.only(top: 02),
                                 child: Text(
-                                    'Most trusted school for experienced tutoring',
+                                    'Educate them with knowledge, love and care',
                                     style: TextStyle(
                                         fontSize: 13,
                                         color: cBlack,

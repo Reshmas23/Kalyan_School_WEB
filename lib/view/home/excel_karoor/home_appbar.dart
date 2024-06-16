@@ -103,7 +103,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                               ? const Padding(
                                   padding: EdgeInsets.only(top: 02),
                                   child: Text(
-                                      'Most trusted school\nfor experienced tutoring',
+                                      'Educate them with\n knowledge, love  & care',
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: cWhite,
@@ -112,7 +112,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                               : const Padding(
                                   padding: EdgeInsets.only(top: 02),
                                   child: Text(
-                                      'Most trusted school for experienced tutoring',
+                                      'Educate them with knowledge, love and care',
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: cWhite,
