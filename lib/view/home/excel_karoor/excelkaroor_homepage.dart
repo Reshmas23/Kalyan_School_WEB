@@ -5,6 +5,7 @@ import 'package:vidyaveechi_website/view/fonts/google_monstre.dart';
 import 'package:vidyaveechi_website/view/fonts/google_poppins_widget.dart';
 import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
 import 'package:vidyaveechi_website/view/home/screens/create_school/Registration/registrationpage.dart';
+import 'package:vidyaveechi_website/view/home/screens/create_school/create_school.dart';
 import 'package:vidyaveechi_website/view/widgets/responsive/responsive.dart';
 
 class ExcelKaroorHOmeScreen extends StatelessWidget {
@@ -151,36 +152,36 @@ class ExcelKaroorHOmeScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 50,
                                     ),
-                                    // SizedBox(
-                                    //   height: 40,
-                                    //   width: 130,
-                                    //   child: ElevatedButton(
-                                    //     style: ElevatedButton.styleFrom(
-                                    //         shape: RoundedRectangleBorder(
-                                    //             borderRadius:
-                                    //                 BorderRadius.circular(
-                                    //                     20.0),
-                                    //             side: const BorderSide(
-                                    //                 color: cred)),
-                                    //         backgroundColor:
-                                    //             cWhite),
-                                    //     onPressed: () {
-                                    //       Navigator.push(context,
-                                    //           MaterialPageRoute(
-                                    //         builder: (context) {
-                                    //           return const SchoolProfile();
-                                    //         },
-                                    //       ));
-                                    //     },
-                                    //     child: Text(
-                                    //       'CREATE',
-                                    //       style: GoogleFonts.poppins(
-                                    //           fontSize: 13,
-                                    //           fontWeight: FontWeight.bold,
-                                    //           color: Colors.black),
-                                    //     ),
-                                    //   ),
-                                    // ),
+                                    SizedBox(
+                                      height: 40,
+                                      width: 130,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        20.0),
+                                                side: const BorderSide(
+                                                    color: cred)),
+                                            backgroundColor:
+                                                cWhite),
+                                        onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return const SchoolProfile();
+                                            },
+                                          ));
+                                        },
+                                        child: Text(
+                                          'CREATE',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

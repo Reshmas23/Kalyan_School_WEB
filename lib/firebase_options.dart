@@ -53,11 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDyRr75J_tMKrvzc69XHhYvsk0rL7ZyIs0',
-    appId: '1:983346800712:web:dc1ddf5d7a373b5988507d',
-    messagingSenderId: '983346800712',
-    projectId: 'kalyan-school-29-may',
-    authDomain: 'kalyan-school-29-may.firebaseapp.com',
-    storageBucket: 'kalyan-school-29-may.appspot.com',
+    apiKey: 'AIzaSyB4S_0-sPXy3OofNDcVj6ta4ktuqd_VbBU',
+    appId: '1:246718848969:web:3a71c9e493849efd451218',
+    messagingSenderId: '246718848969',
+    projectId: 'kalyanschools-b1b08',
+    authDomain: 'kalyanschools-b1b08.firebaseapp.com',
+    storageBucket: 'kalyanschools-b1b08.appspot.com',
+    measurementId: 'G-60RQKF9T16',
   );
 }
