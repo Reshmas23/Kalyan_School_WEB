@@ -8,6 +8,7 @@ import 'package:vidyaveechi_website/view/ioT_Card/code.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/widgets/category_tableHeader.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/std_data_list.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/therapy_home.dart';
+import 'package:vidyaveechi_website/view/users/super_admin/widgets/buttonContainer.dart';
 import 'package:vidyaveechi_website/view/utils/shared_pref/user_auth/user_credentials.dart';
 import 'package:vidyaveechi_website/view/widgets/responsive/responsive.dart';
 import 'package:vidyaveechi_website/view/widgets/routeSelectedTextContainer/routeSelectedTextContainer.dart';
@@ -55,6 +56,72 @@ class TherapyManagement extends StatelessWidget {
                             onTap: () {},
                             child: const RouteSelectedTextContainer(
                                 width: 100, title: 'Students List')),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () async {
+                          therapycontroller.sendNotificationToUsers.value =
+                              true;
+                          // await therapycontroller
+                          //     .sendMessageForUnPaidStudentandParents();
+                        },
+                        child: Obx(() => Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: therapycontroller
+                                          .sendNotificationToUsers.value ==
+                                      true
+                                  ? const SizedBox(
+                                      child:
+                                          CircularProgressIndicator.adaptive(),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () async {
+                                        therapycontroller.sendNotificationToUsers.value=true;
+                                        await server
+                                            .collection("SchoolListCollection")
+                                            .doc(UserCredentialsController
+                                                .schoolId)
+                                            .collection(
+                                                UserCredentialsController
+                                                    .batchId!)
+                                            .doc(UserCredentialsController
+                                                .batchId!)
+                                            .collection('Therapy')
+                                            .doc(data?.docid)
+                                            .collection('students')
+                                            .get()
+                                            .then((value) async {
+                                        
+                                          for (var i = 0;
+                                              i < value.docs.length;
+                                              i++) {
+                                                      print(value.docs.length);
+                                            therapycontroller
+                                                .sendTherapyNotificationToUSers(
+                                                    studentID: value.docs[i]
+                                                        .data()['studentDocId'],
+                                                    title: "Therapy Update",
+                                                    body:
+                                                        "${data?.therapyName ?? ""} Therapy status on ${dateConvert(DateTime.now())} , 01 day of Student Name : ${value.docs[i].data()['studentName']} we have done the ${data?.therapyName ?? ""} Therapy ,follow up for the therapy is ${value.docs[i].data()['followUp']}\n Therapist : ${data?.therapistNAme ?? ""}");
+                                          }
+                                        });
+                                      },
+                                      child: ButtonContainerWidget(
+                                          curving: 0,
+                                          colorindex: 6,
+                                          height: 35,
+                                          width: 220,
+                                          child: const Center(
+                                            child: TextFontWidgetRouter(
+                                              text:
+                                                  'Send Message For Unpaid Students',
+                                              fontsize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: cWhite,
+                                            ),
+                                          )),
+                                    ),
+                            )),
                       ),
                     ],
                   ),

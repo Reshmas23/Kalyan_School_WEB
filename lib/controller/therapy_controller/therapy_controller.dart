@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vidyaveechi_website/controller/class_controller/class_controller.dart';
+import 'package:vidyaveechi_website/controller/notification_controller/notification_Controller.dart';
 import 'package:vidyaveechi_website/model/student_model/student_model.dart';
 import 'package:vidyaveechi_website/model/therapy_model/therapy_model.dart';
 import 'package:vidyaveechi_website/model/therapy_student_model/therapy_student_model.dart';
@@ -11,12 +12,15 @@ import 'package:vidyaveechi_website/view/constant/const.dart';
 import 'package:vidyaveechi_website/view/utils/firebase/firebase.dart';
 import 'package:vidyaveechi_website/view/utils/shared_pref/user_auth/user_credentials.dart';
 import 'package:vidyaveechi_website/view/web_DashBoard/pages/video_management/presentation/pages/widgets/video_widgets.dart';
+import 'package:vidyaveechi_website/view/widgets/notification_color/notification_color_widget.dart';
 
 class TherapyController extends GetxController {
   RxBool therapyhome = true.obs;
+  RxBool sendNotificationToUsers = false.obs;
   Rx<ButtonState> buttonstate = ButtonState.idle.obs;
   Rxn<TherapyModel> therapyModelData = Rxn<TherapyModel>();
-
+  NotificationController notificationController =
+      Get.put(NotificationController());
   final formKey = GlobalKey<FormState>();
 
   TextEditingController therapyNameController = TextEditingController();
@@ -190,5 +194,63 @@ class TherapyController extends GetxController {
       classwiseStudetsList.add(list[i]);
     }
     return classwiseStudetsList;
+  }
+
+  Future<void> sendTherapyNotificationToUSers(
+      {required String studentID,
+      required String title,
+      required String body}) async {
+    try {
+      String parentID = '';
+      await server
+          .collection('SchoolListCollection')
+          .doc(UserCredentialsController.schoolId)
+          .collection('AllStudents')
+          .doc(studentID)
+          .get()
+          .then((value) {
+        parentID = value.data()?['parentId'];
+        print("object $parentID");
+      }).then((value) async {
+        await server
+            .collection('SchoolListCollection')
+            .doc(UserCredentialsController.schoolId)
+            .collection('AllUsersDeviceID')
+            .doc(parentID)
+            .get()
+            .then((parentvalue) async {
+          notificationController.sendPushMessage(
+              parentvalue.data()?['devideID'], body, title);
+          notificationController.userparentNotification(
+              parentID: parentID,
+              icon: SuccessNotifierSetup().icon,
+              messageText: body,
+              headerText: title,
+              whiteshadeColor: SuccessNotifierSetup().whiteshadeColor,
+              containerColor: SuccessNotifierSetup().containerColor);
+        });
+        await server
+            .collection('SchoolListCollection')
+            .doc(UserCredentialsController.schoolId)
+            .collection('AllUsersDeviceID')
+            .doc(studentID)
+            .get()
+            .then((studentvalue) async {
+          notificationController.sendPushMessage(
+              studentvalue.data()?['devideID'], body, title);
+          notificationController.userparentNotification(
+              parentID: studentID,
+              icon: SuccessNotifierSetup().icon,
+              messageText: body,
+              headerText: title,
+              whiteshadeColor: SuccessNotifierSetup().whiteshadeColor,
+              containerColor: SuccessNotifierSetup().containerColor);
+        });
+      });
+      sendNotificationToUsers.value = true;
+    } catch (e) {
+      sendNotificationToUsers.value = false;
+      // showToast(msg: "Something Wrong please try again");
+    }
   }
 }
