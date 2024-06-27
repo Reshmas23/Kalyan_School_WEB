@@ -30,6 +30,7 @@ import 'package:vidyaveechi_website/view/users/admin/screens/registration_users/
 import 'package:vidyaveechi_website/view/users/admin/screens/registration_users/teacher/teachers_regi_container.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/students/view_allStudents.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/teacher/view_allTeachers.dart';
+import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/Students_tm/all_Students_tm.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/therapy_home.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/timetable/timetable_main_screen.dart';
 import 'package:vidyaveechi_website/view/utils/firebase/firebase.dart';
@@ -262,7 +263,8 @@ List<Widget> pages = [
   // const Scaffold(body: LoginDashBoard())
   const TimeTableMainScreen(),
   LoginHistroyContainer(),
-  TherapyHomePage()
+  TherapyHomePage(),
+  AllStudentInTherapy(),
 ];
 List<String> sideMenu = [
   'Attendence',

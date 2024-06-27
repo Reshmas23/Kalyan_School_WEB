@@ -15,6 +15,7 @@ import 'package:vidyaveechi_website/view/web_DashBoard/pages/video_management/pr
 import 'package:vidyaveechi_website/view/widgets/notification_color/notification_color_widget.dart';
 
 class TherapyController extends GetxController {
+    RxBool ontapStudentTm = false.obs;
   RxBool therapyhome = true.obs;
   RxBool sendNotificationToUsers = false.obs;
   Rx<ButtonState> buttonstate = ButtonState.idle.obs;
@@ -22,6 +23,8 @@ class TherapyController extends GetxController {
   NotificationController notificationController =
       Get.put(NotificationController());
   final formKey = GlobalKey<FormState>();
+    Rxn<StudentTherapyModel> studentTherapyModel = Rxn<StudentTherapyModel>();
+      RxBool onClassWiseSearchofTm = false.obs;
 
   TextEditingController therapyNameController = TextEditingController();
   TextEditingController therapyDiscriptionController = TextEditingController();

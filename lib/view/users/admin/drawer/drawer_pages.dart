@@ -624,6 +624,25 @@ class DrawerSelectedPagesSection extends StatelessWidget {
             title: 'Therapy Management',
           ),
         ),
+         const SizedBox(
+          height: 10,
+        ),
+         ListTile(
+          leading: SizedBox(
+              height: 20,
+              width: 20,
+              child: Image.asset('webassets/png/therapy.png')),
+          tileColor: selectedIndex == 23
+              ? themeColorBlue.withOpacity(0.1)
+              : Colors.transparent,
+          onTap: () {
+            index = 23;
+            onTap.call(index);
+          },
+          title: DashboardTextFontWidget(
+            title: 'Therapy Students',
+          ),
+        ),
       ],
     );
   }
