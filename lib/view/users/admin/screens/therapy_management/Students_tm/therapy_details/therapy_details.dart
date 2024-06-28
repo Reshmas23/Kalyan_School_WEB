@@ -5,7 +5,6 @@ import 'package:vidyaveechi_website/controller/exam_result_controller/exam_resul
 import 'package:vidyaveechi_website/view/colors/colors.dart';
 import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/widgets/category_tableHeader.dart';
-import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/widgets/category_tile_container.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/Students_tm/therapy_details/therapy_list.dart';
 
 class PerStudentTherapyDetails extends StatelessWidget {
@@ -23,7 +22,7 @@ class PerStudentTherapyDetails extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
+        Container(  
           height: 40,
           width: 1200,
           color: Colors.blue.withOpacity(0.1),
@@ -127,7 +126,10 @@ class PerStudentTherapyDetails extends StatelessWidget {
                 child: SizedBox(
                   child:  ListView.separated(
                                     itemBuilder: (context, index) {
-                                 return TherapyListContainer(index:index);
+                                 return GestureDetector(
+                                  onTap: () {
+                                  },
+                                  child: TherapyListContainer(index:index));
                                     },
                                     separatorBuilder: (context, index) {
                                       return const SizedBox(
