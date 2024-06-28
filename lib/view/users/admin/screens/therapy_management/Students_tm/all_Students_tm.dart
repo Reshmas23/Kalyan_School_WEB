@@ -44,7 +44,7 @@ class AllStudentInTherapy extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 const TextFontWidget(
-                                  text: 'All Students List',
+                                  text: 'All Therapy Students',
                                   fontsize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
