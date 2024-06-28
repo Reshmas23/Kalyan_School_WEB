@@ -5,8 +5,6 @@ import 'package:vidyaveechi_website/controller/class_controller/class_controller
 import 'package:vidyaveechi_website/controller/therapy_controller/therapy_controller.dart';
 import 'package:vidyaveechi_website/view/colors/colors.dart';
 import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
-import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/attendence_history_status/attendence_history_status.dart';
-import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/exam_history_status/exam_history_status.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/widgets/detail_tileContainer.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/Students_tm/therapy_details/therapy_details.dart';
 import 'package:vidyaveechi_website/view/widgets/responsive/responsive.dart';
@@ -166,6 +164,7 @@ class StudentDetailsInTherapy extends StatelessWidget {
                               ),
                             ),
                             Expanded(
+                              flex: 2,
                               child: Column(
                                 children: [
                                   Padding(
@@ -309,6 +308,28 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.blue.withOpacity(0.5),)
+                                ),
+                                 width: double.infinity,
+                                 height: 200,
+                                child: SingleChildScrollView(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: ListView.separated(
+                                      itemBuilder: (context, index) {
+                                        return const TextFontWidget(text: "• text", fontsize: 15,fontWeight: FontWeight.w400,);
+                                      },
+                                      itemCount: 20,
+                                      separatorBuilder: (context, index) => const SizedBox(height: 2,),
+                                       ),
+                                  ),
+                                ),
+                              ))
+
                           ],
                         ),
                       )

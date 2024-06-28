@@ -5,6 +5,7 @@ import 'package:vidyaveechi_website/controller/exam_result_controller/exam_resul
 import 'package:vidyaveechi_website/view/colors/colors.dart';
 import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/widgets/category_tableHeader.dart';
+import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/Students_tm/therapy_details/show_dialogbox.dart/therapy_box.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/Students_tm/therapy_details/therapy_list.dart';
 
 class PerStudentTherapyDetails extends StatelessWidget {
@@ -128,6 +129,7 @@ class PerStudentTherapyDetails extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                  return GestureDetector(
                                   onTap: () {
+                                    detailsOfStudentsInTherapy(context);
                                   },
                                   child: TherapyListContainer(index:index));
                                     },
