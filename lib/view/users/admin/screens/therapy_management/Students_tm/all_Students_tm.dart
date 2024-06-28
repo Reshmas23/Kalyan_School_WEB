@@ -332,10 +332,11 @@ class AllStudentInTherapy extends StatelessWidget {
                                                                 .docs[index]
                                                                 .data());
                                                     return GestureDetector(
-                                                      onTap: () {
+                                                      onTap: ()async {
                                                         // therapyController
                                                         //     .studentTherapyModel
                                                         //     .value = data;
+                                                   await     therapyController.addStudentinTherapySection(studentID: data.docid);
                                                         therapyController
                                                             .ontapStudentTm
                                                             .value = true;
