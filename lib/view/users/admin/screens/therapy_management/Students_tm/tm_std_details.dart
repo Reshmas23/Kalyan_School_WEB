@@ -19,7 +19,6 @@ class StudentDetailsInTherapy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = studentController.studentModelData.value;
-
     return DefaultTabController(
       length: 1,
       child: SingleChildScrollView(
@@ -207,11 +206,16 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                                     title: 'Date of Birth',
                                                     subtitle: data?.dateofBirth??'',
                                                   ),
-                                                  // const StudentDetailTileContainer(
-                                                  //   flex: 1,
-                                                  //   title: 'Batch Year',
-                                                  //   subtitle: 'March 2023',
-                                                  // ),
+                                                  const StudentDetailTileContainer(
+                                                    flex: 1,
+                                                    title: 'Last day',
+                                                    subtitle: 'March 2023' ,
+                                                  ),
+                                                   const StudentDetailTileContainer(
+                                                    flex: 1,
+                                                    title: 'Last day',
+                                                    subtitle: 'March 2023' ,
+                                                  ),
                                                   StudentDetailTileContainer(
                                                     flex: 1,
                                                     title: 'Admission No',
@@ -248,40 +252,40 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                     // flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 20),
+                                      padding: EdgeInsets.only(left: 20),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Row(
                                             children: [
-                                              const Icon(Icons.call),
+                                              Icon(Icons.description),
                                               TextFontWidget(
-                                                text:
-                                                    " +91 ${data?.parentPhoneNumber} ",
+                                                text:'studentTherapyDiscription',
+                                                    //" +91 ${data?.parentPhoneNumber} ",
                                                 fontsize: 12,
                                                 color: Colors.blue,
                                               ),
-                                              const SizedBox(
+                                              SizedBox(
                                                 width: 60,
                                               ),
-                                              GestureDetector(
-                                                  onTap: () => Get.find<
-                                                              StudentController>()
-                                                          .enableorDisableUpdate(
-                                                        data?.docid??'',
-                                                        true,
-                                                      ),
-                                                  child: CircleAvatar(
-                                                      child: Icon(
-                                                    Icons.edit_square,
-                                                    size: 21,
-                                                    color:
-                                                        cBlack.withOpacity(0.3),
-                                                  ))),
+                                              // GestureDetector(
+                                              //     onTap: () => Get.find<
+                                              //                 StudentController>()
+                                              //             .enableorDisableUpdate(
+                                              //           data?.docid??'',
+                                              //           true,
+                                              //         ),
+                                              //     child: CircleAvatar(
+                                              //         child: Icon(
+                                              //       Icons.edit_square,
+                                              //       size: 21,
+                                              //       color:
+                                              //           cBlack.withOpacity(0.3),
+                                              //     ))),
                                               // Container(
                                               //   height: 30,
                                               //   width: 30,
@@ -293,9 +297,9 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                           ),
                                           Row(
                                             children: [
-                                              const Icon(Icons.email),
+                                              Icon(Icons.man),
                                               TextFontWidget(
-                                                text: data?.studentemail??'',
+                                                text: 'studentAge',
                                                 fontsize: 12,
                                                 color: Colors.blue,
                                               )
