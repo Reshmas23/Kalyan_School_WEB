@@ -23,7 +23,7 @@ class StudentDetailsInTherapy extends StatelessWidget {
     final data = studentController.studentModelData.value;
 
     return DefaultTabController(
-      length: 3,
+      length: 1,
       child: SingleChildScrollView(
         scrollDirection: ResponsiveWebSite.isMobile(context)
             ? Axis.horizontal
@@ -335,12 +335,12 @@ class StudentDetailsInTherapy extends StatelessWidget {
                           Tab(
                             text: 'THERAPY',
                           ),
-                          Tab(
-                            text: 'ATTENDANCE',
-                          ),
-                          Tab(
-                            text: 'EXAM ',
-                          )
+                          // Tab(
+                          //   text: 'ATTENDANCE',
+                          // ),
+                          // Tab(
+                          //   text: 'EXAM ',
+                          // )
                         ],
                       ),
                     ),
@@ -367,8 +367,8 @@ class StudentDetailsInTherapy extends StatelessWidget {
                   child: TabBarView(children: [
                     PerStudentTherapyDetails(),
                     // PerStudentFeesHistory(), //........................ Student FEES
-                    PerStudentAttendenceHistory(), //.......................... Student Attendence
-                    PerStudentExamHistory(), //............................ Student Exam History
+                    // PerStudentAttendenceHistory(), //.......................... Student Attendence
+                    // PerStudentExamHistory(), //............................ Student Exam History
                   ]),
                 ),
               )

@@ -37,30 +37,30 @@ class PerStudentTherapyDetails extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Obx(
-                () => StudentCategoryTileContainer(
-                    title: 'No.of Therapy',
-                    subTitle: '${examController.numberExamPassed}',
-                    color: const Color.fromARGB(255, 121, 240, 125)),
-              ),
-              Obx(
-                () => StudentCategoryTileContainer(
-                    title: 'No.of Therapies Pending',
-                    subTitle: '${examController.numberExamFailed}',
-                    color: const Color.fromARGB(255, 234, 102, 92)),
-              ),
-              Obx(() => StudentCategoryTileContainer(
-                  title: 'No.of Therapies Completed',
-                  subTitle: '${examController.numberExamConducted}',
-                  color: const Color.fromARGB(255, 121, 123, 240)))
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 10),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     children: [
+        //       Obx(
+        //         () => StudentCategoryTileContainer(
+        //             title: 'No.of Therapy',
+        //             subTitle: '${examController.numberExamPassed}',
+        //             color: const Color.fromARGB(255, 121, 240, 125)),
+        //       ),
+        //       Obx(
+        //         () => StudentCategoryTileContainer(
+        //             title: 'No.of Therapies Pending',
+        //             subTitle: '${examController.numberExamFailed}',
+        //             color: const Color.fromARGB(255, 234, 102, 92)),
+        //       ),
+        //       Obx(() => StudentCategoryTileContainer(
+        //           title: 'No.of Therapies Completed',
+        //           subTitle: '${examController.numberExamConducted}',
+        //           color: const Color.fromARGB(255, 121, 123, 240)))
+        //     ],
+        //   ),
+        // ),
         Expanded(
           child: Column(
             children: [
