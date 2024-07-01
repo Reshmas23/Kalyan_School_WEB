@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidyaveechi_website/controller/admin_section/student_controller/student_controller.dart';
 import 'package:vidyaveechi_website/controller/class_controller/class_controller.dart';
 import 'package:vidyaveechi_website/controller/therapy_controller/therapy_controller.dart';
 import 'package:vidyaveechi_website/view/colors/colors.dart';
+import 'package:vidyaveechi_website/view/drop_down/therapy_list/therapy_listDropDown.dart';
 import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/students/student_details/widgets/detail_tileContainer.dart';
 import 'package:vidyaveechi_website/view/users/admin/screens/therapy_management/Students_tm/therapy_details/therapy_details.dart';
+import 'package:vidyaveechi_website/view/web_DashBoard/pages/video_management/presentation/pages/widgets/video_widgets.dart';
+import 'package:vidyaveechi_website/view/widgets/blue_Container_widget/blue_Container_widget.dart';
 import 'package:vidyaveechi_website/view/widgets/responsive/responsive.dart';
 import 'package:vidyaveechi_website/view/widgets/routeSelectedTextContainer/routeSelectedTextContainer.dart';
 import 'package:vidyaveechi_website/view/widgets/routeSelectedTextContainer/route_NonSelectedContainer.dart';
 
 class StudentDetailsInTherapy extends StatelessWidget {
   final TherapyController therapyController = Get.put(TherapyController());
-  final StudentController studentController = Get.put(StudentController());
   StudentDetailsInTherapy({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final data = studentController.studentModelData.value;
+    final data = therapyController.studentModelData.value;
     return DefaultTabController(
       length: 1,
       child: SingleChildScrollView(
@@ -76,8 +77,8 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                                 Get.find<ClassController>()
                                                     .ontapClassStudents
                                                     .value = false;
-                                                therapyController
-                                                    .ontapStudentTm.value = false;
+                                                therapyController.ontapStudentTm
+                                                    .value = false;
                                               },
                                               child:
                                                   const RouteNonSelectedTextContainer(
@@ -123,8 +124,8 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                                 Get.find<ClassController>()
                                                     .ontapClassStudents
                                                     .value = false;
-                                                 therapyController
-                                                    .ontapStudentTm.value = false;
+                                                therapyController.ontapStudentTm
+                                                    .value = false;
                                               },
                                               child:
                                                   const RouteNonSelectedTextContainer(
@@ -180,7 +181,7 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                             padding: const EdgeInsets.only(
                                                 left: 10, top: 10),
                                             child: TextFontWidget(
-                                              text: data?.studentName??'',
+                                              text: data?.studentName ?? '',
                                               fontsize: 20,
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -199,51 +200,33 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                                   StudentDetailTileContainer(
                                                     flex: 1,
                                                     title: 'Gender',
-                                                    subtitle: data?.gender??'',
+                                                    subtitle:
+                                                        data?.gender ?? '',
                                                   ),
                                                   StudentDetailTileContainer(
                                                     flex: 1,
                                                     title: 'Date of Birth',
-                                                    subtitle: data?.dateofBirth??'',
+                                                    subtitle:
+                                                        data?.dateofBirth ?? '',
                                                   ),
                                                   const StudentDetailTileContainer(
                                                     flex: 1,
                                                     title: 'Last day',
-                                                    subtitle: 'March 2023' ,
+                                                    subtitle: 'March 2023',
                                                   ),
-                                                   const StudentDetailTileContainer(
+                                                  const StudentDetailTileContainer(
                                                     flex: 1,
                                                     title: 'Last day',
-                                                    subtitle: 'March 2023' ,
+                                                    subtitle: 'March 2023',
                                                   ),
                                                   StudentDetailTileContainer(
                                                     flex: 1,
                                                     title: 'Admission No',
                                                     subtitle:
-                                                        data?.admissionNumber??"",
+                                                        data?.admissionNumber ??
+                                                            "",
                                                   ),
-                                                  // StreamBuilder(
-                                                  //     stream: server
-                                                  //         .collection('SchoolListCollection')
-                                                  //         .doc( UserCredentialsController.schoolId)
-                                                  //         .collection('classes')
-                                                  //         .doc(data.classId)
-                                                  //         .snapshots(),
-                                                  //     builder: (context, snap) {
-                                                  //       if (snap.hasData) {
-                                                  //         return StudentDetailTileContainer(
-                                                  //             flex: 1,
-                                                  //             title:
-                                                  //                 'Class Name',
-                                                  //             subtitle:
-                                                  //                 '${snap.data?['className'] ?? ""}'
-                                                  //             // stringTimeToDateConvert(
-                                                  //             //     data.createDate),
-                                                  //             );
-                                                  //       } else {
-                                                  //         return const Text("Not Found");
-                                                  //       }
-                                                  //     }),
+                                                
                                                 ],
                                               ),
                                             ),
@@ -264,35 +247,16 @@ class StudentDetailsInTherapy extends StatelessWidget {
                                             children: [
                                               Icon(Icons.description),
                                               TextFontWidget(
-                                                text:'studentTherapyDiscription',
-                                                    //" +91 ${data?.parentPhoneNumber} ",
+                                                text:
+                                                    'studentTherapyDiscription',
+                                                //" +91 ${data?.parentPhoneNumber} ",
                                                 fontsize: 12,
                                                 color: Colors.blue,
                                               ),
                                               SizedBox(
                                                 width: 60,
                                               ),
-                                              // GestureDetector(
-                                              //     onTap: () => Get.find<
-                                              //                 StudentController>()
-                                              //             .enableorDisableUpdate(
-                                              //           data?.docid??'',
-                                              //           true,
-                                              //         ),
-                                              //     child: CircleAvatar(
-                                              //         child: Icon(
-                                              //       Icons.edit_square,
-                                              //       size: 21,
-                                              //       color:
-                                              //           cBlack.withOpacity(0.3),
-                                              //     ))),
-                                              // Container(
-                                              //   height: 30,
-                                              //   width: 30,
-                                              //   decoration:  BoxDecoration(
-                                              //     color: cgreen.withOpacity(0.3),
-                                              //     borderRadius: const BorderRadius.all(Radius.circular(5))),
-                                              //     child: const Icon(Icons.edit,size: 16,),)
+                        
                                             ],
                                           ),
                                           Row(
@@ -313,27 +277,84 @@ class StudentDetailsInTherapy extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              flex: 1,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.blue.withOpacity(0.5),)
-                                ),
-                                 width: double.infinity,
-                                 height: 200,
-                                child: SingleChildScrollView(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: ListView.separated(
-                                      itemBuilder: (context, index) {
-                                        return const TextFontWidget(text: "• text", fontsize: 15,fontWeight: FontWeight.w400,);
-                                      },
-                                      itemCount: 20,
-                                      separatorBuilder: (context, index) => const SizedBox(height: 2,),
-                                       ),
+                                flex: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                    color: Colors.blue.withOpacity(0.5),
+                                  )),
+                                  width: double.infinity,
+                                  height: 200,
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: Obx(() => Row(
+                                              children: [
+                                                const TextFontWidget(
+                                                  text: "Therapy",
+                                                  fontsize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    therapyController
+                                                        .ontapAddTherapy
+                                                        .value = true;
+                                                  },
+                                                  child: therapyController
+                                                              .ontapAddTherapy
+                                                              .value ==
+                                                          true
+                                                      ? Row(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 150,
+                                                       
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only( left: 10),
+                                                              child: TherapyListDropDown(
+                                                                  studentID:
+                                                                      data!.docid),
+                                                            ),
+                                                          ),
+                                                          Checkbox(value: true, onChanged: (value) {
+                                                            therapyController
+                                                              .ontapAddTherapy
+                                                              .value = false;
+                                                          },)
+                                                        ],
+                                                      )
+                                                      : BlueContainerWidget(
+                                                          title: "Add Therapy",
+                                                          fontSize: 14,
+                                                          color:
+                                                              adminePrimayColor),
+                                                )
+                                              ],
+                                            )),
+                                      ),
+                                      Expanded(
+                                        flex: 5,
+                                        child: ListView.separated(
+                                          itemBuilder: (context, index) {
+                                            return const TextFontWidget(
+                                              text: "• text",
+                                              fontsize: 15,
+                                              fontWeight: FontWeight.w400,
+                                            );
+                                          },
+                                          itemCount: 20,
+                                          separatorBuilder: (context, index) =>
+                                              const SizedBox(
+                                            height: 2,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ))
-
+                                ))
                           ],
                         ),
                       )
@@ -358,7 +379,7 @@ class StudentDetailsInTherapy extends StatelessWidget {
                             fontWeight: FontWeight.w400, fontSize: 14),
                         tabs: [
                           Tab(
-                            text: 'THERAPY',
+                            text: 'THERAPY ',
                           ),
                           // Tab(
                           //   text: 'ATTENDANCE',

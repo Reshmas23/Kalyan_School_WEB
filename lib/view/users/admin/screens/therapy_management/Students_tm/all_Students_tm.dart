@@ -21,356 +21,334 @@ class AllStudentInTherapy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => therapyController.ontapStudentTm.value == true
-            ? StudentDetailsInTherapy()
-            // : therapyController.ontapCreateStudent.value == true
-            //     ? CreateStudent()
-                : SingleChildScrollView(
-                    scrollDirection: ResponsiveWebSite.isMobile(context)
-                        ? Axis.horizontal
-                        : Axis.vertical,
-                    child: Container(
-                      color: screenContainerbackgroundColor,
-                      height: 650,
-                      width: ResponsiveWebSite.isDesktop(context)
-                          ? double.infinity
-                          : 1200,
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 20, right: 20, left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+        ? StudentDetailsInTherapy()
+        // : therapyController.ontapCreateStudent.value == true
+        //     ? CreateStudent()
+        : SingleChildScrollView(
+            scrollDirection: ResponsiveWebSite.isMobile(context)
+                ? Axis.horizontal
+                : Axis.vertical,
+            child: Container(
+              color: screenContainerbackgroundColor,
+              height: 650,
+              width:
+                  ResponsiveWebSite.isDesktop(context) ? double.infinity : 1200,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const TextFontWidget(
+                          text: 'All Therapy Students',
+                          fontsize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {},
+                          // searchStudentsByName(context),
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey.withOpacity(0.2)),
+                            child: const Row(
                               children: [
-                                const TextFontWidget(
-                                  text: 'All Therapy Students',
-                                  fontsize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    
-                                  },
-                                  // searchStudentsByName(context),
-                                  child: Container(
-                                    height: 40,
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.grey.withOpacity(0.2)),
-                                    child: const Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Icon(Icons.search),
-                                        ),
-                                        TextFontWidget(
-                                            text: " Search By StudentName",
-                                            fontsize: 12)
-                                      ],
-                                    ),
-                                  ),
-                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      
-                                    },
-                                     //searchStudentsByID(context),
-                                    child: Container(
-                                      height: 40,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.grey.withOpacity(0.2)),
-                                      child: const Row(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Icon(Icons.search),
-                                          ),
-                                          TextFontWidget(
-                                              text: " Search By StudentID",
-                                              fontsize: 12)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.search),
                                 ),
-                                // Obx(() => therapyController
-                                //             .onClassWiseSearch.value ==
-                                //         true
-                                //     ? Row(
-                                //         children: [
-                                //           SizedBox(
-                                //               height: 40,
-                                //               width: 200,
-                                //               child: SelectClassDropDown()),
-                                //           Checkbox(
-                                //             value: therapyController
-                                //                 .onClassWiseSearch.value,
-                                //             onChanged: (value) {
-                                //               therapyController
-                                //                   .onClassWiseSearch
-                                //                   .value = false;
-                                //             },
-                                //           )
-                                //         ],
-                                //       )
-                                //     : GestureDetector(
-                                //         onTap: () {
-                                //           therapyController
-                                //               .onClassWiseSearch.value = true;
-                                //         },
-                                //         child: Container(
-                                //           height: 40,
-                                //           width: 200,
-                                //           decoration: BoxDecoration(
-                                //               borderRadius:
-                                //                   BorderRadius.circular(10),
-                                //               color:
-                                //                   Colors.grey.withOpacity(0.2)),
-                                //           child: const Row(
-                                //             children: [
-                                //               Padding(
-                                //                 padding: EdgeInsets.all(8.0),
-                                //                 child: Icon(Icons.search),
-                                //               ),
-                                //               TextFontWidget(
-                                //                   text: " Search By ClassWise",
-                                //                   fontsize: 12),
-                                //             ],
-                                //           ),
-                                //         ),
-                                //       )),
+                                TextFontWidget(
+                                    text: " Search By StudentName",
+                                    fontsize: 12)
                               ],
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            const Row(
-                              children: [
-                                RouteSelectedTextContainer(
-                                  title: 'All Students',
-                                  width: 200,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     regiControl.ontapRegiStudentList.value =
-                                //         true;
-                                //   },
-                                //   child: const RouteSelectedTextContainer(
-                                //       width: 200, title: 'Registered Student'),
-                                // ),
-                                Spacer(),
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     therapyController.ontapCreateStudent.value =
-                                //         true;
-                                //   },
-                                //   child: ButtonContainerWidget(
-                                //       curving: 30,
-                                //       colorindex: 0,
-                                //       height: 35,
-                                //       width: 200,
-                                //       child: const Center(
-                                //         child: TextFontWidgetRouter(
-                                //           text: 'Create New Student',
-                                //           fontsize: 12,
-                                //           fontWeight: FontWeight.bold,
-                                //           color: cWhite,
-                                //         ),
-                                //       )),
-                                // )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              color: cWhite,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 5, right: 5),
-                                child: Container(
-                                  color: cWhite,
-                                  height: 40,
-                                  child: const Row(
-                                    children: [
-                                      Expanded(
-                                          flex: 1,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'No')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                      Expanded(
-                                          flex: 2,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'ID')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'Name')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'E mail')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                      Expanded(
-                                          flex: 3,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'Ph.NO')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                      Expanded(
-                                          flex: 2,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'Class')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                      Expanded(
-                                          flex: 3,
-                                          child: CatrgoryTableHeaderWidget(
-                                              headerTitle: 'Status')),
-                                      SizedBox(
-                                        width: 02,
-                                      ),
-                                    ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: GestureDetector(
+                            onTap: () {},
+                            //searchStudentsByID(context),
+                            child: Container(
+                              height: 40,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey.withOpacity(0.2)),
+                              child: const Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.search),
                                   ),
-                                ),
+                                  TextFontWidget(
+                                      text: " Search By StudentID",
+                                      fontsize: 12)
+                                ],
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                height: 400,
-                                // width: 1200,
-                                decoration: BoxDecoration(
-                                  color: cWhite,
-                                  border: Border.all(color: cWhite),
-                                ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 5, left: 5),
-                                  child: SizedBox(
-                                    // width: 1100,
-                                    child: StreamBuilder(
-                                      stream: therapyController
-                                                  .onClassWiseSearchofTm.value ==
-                                              true
-                                          ? server
-                                              .collection(
-                                                  'SchoolListCollection')
-                                              .doc(UserCredentialsController
-                                                  .schoolId)
-                                              .collection(
-                                                  UserCredentialsController
-                                                      .batchId!)
-                                              .doc(UserCredentialsController
-                                                  .batchId!)
-                                              .collection('classes')
-                                              .doc(Get.find<ClassController>()
-                                                  .classDocID
-                                                  .value)
-                                              .collection('Students')
-                                              .snapshots()
-                                          : server
-                                              .collection(
-                                                  'SchoolListCollection')
-                                              .doc(UserCredentialsController
-                                                  .schoolId)
-                                              .collection('AllStudents').orderBy('studentName')
-                                             // .orderBy('admissionNumber')
-                                              .snapshots(),
-                                      builder: (context, snaPS) {
-                                        //      if (!snaPS.hasData || snaPS.data!.docs.isEmpty) {
-                                        //   return const Center(
-                                        //       child: Text(
-                                        //     'No Sudents Created',
-                                        //     style: TextStyle(
-                                        //         fontSize: 15, fontWeight: FontWeight.w500),
-                                        //   ));
-                                        // }
-                                        if (snaPS.hasData) {
-                                          return snaPS.data!.docs.isEmpty
-                                              ? const Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      "Please create Students",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                  ),
-                                                )
-                                              : ListView.separated(
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    final data =
-                                                        StudentModel.fromMap(
-                                                            snaPS.data!
-                                                                .docs[index]
-                                                                .data());
-                                                    return GestureDetector(
-                                                      onTap: ()async {
-                                                        // therapyController
-                                                        //     .studentTherapyModel
-                                                        //     .value = data;
-                                                   await     therapyController.addStudentinTherapySection(studentID: data.docid);
-                                                        therapyController
-                                                            .ontapStudentTm
-                                                            .value = true;
-                                                      },
-                                                      child: AllTherapyStudentDataList(
-                                                        data: data,
-                                                        index: index,
-                                                      ),
-                                                    );
-                                                  },
-                                                  separatorBuilder:
-                                                      (context, index) {
-                                                    return const SizedBox(
-                                                      height: 02,
-                                                    );
-                                                  },
-                                                  itemCount:
-                                                      snaPS.data!.docs.length);
-                                        } else if (snaPS.data == null) {
-                                          return const LoadingWidget();
-                                        } else {
-                                          return const LoadingWidget();
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
+                          ),
+                        ),
+                        // Obx(() => therapyController
+                        //             .onClassWiseSearch.value ==
+                        //         true
+                        //     ? Row(
+                        //         children: [
+                        //           SizedBox(
+                        //               height: 40,
+                        //               width: 200,
+                        //               child: SelectClassDropDown()),
+                        //           Checkbox(
+                        //             value: therapyController
+                        //                 .onClassWiseSearch.value,
+                        //             onChanged: (value) {
+                        //               therapyController
+                        //                   .onClassWiseSearch
+                        //                   .value = false;
+                        //             },
+                        //           )
+                        //         ],
+                        //       )
+                        //     : GestureDetector(
+                        //         onTap: () {
+                        //           therapyController
+                        //               .onClassWiseSearch.value = true;
+                        //         },
+                        //         child: Container(
+                        //           height: 40,
+                        //           width: 200,
+                        //           decoration: BoxDecoration(
+                        //               borderRadius:
+                        //                   BorderRadius.circular(10),
+                        //               color:
+                        //                   Colors.grey.withOpacity(0.2)),
+                        //           child: const Row(
+                        //             children: [
+                        //               Padding(
+                        //                 padding: EdgeInsets.all(8.0),
+                        //                 child: Icon(Icons.search),
+                        //               ),
+                        //               TextFontWidget(
+                        //                   text: " Search By ClassWise",
+                        //                   fontsize: 12),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Row(
+                      children: [
+                        RouteSelectedTextContainer(
+                          title: 'All Students',
+                          width: 200,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     regiControl.ontapRegiStudentList.value =
+                        //         true;
+                        //   },
+                        //   child: const RouteSelectedTextContainer(
+                        //       width: 200, title: 'Registered Student'),
+                        // ),
+                        Spacer(),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     therapyController.ontapCreateStudent.value =
+                        //         true;
+                        //   },
+                        //   child: ButtonContainerWidget(
+                        //       curving: 30,
+                        //       colorindex: 0,
+                        //       height: 35,
+                        //       width: 200,
+                        //       child: const Center(
+                        //         child: TextFontWidgetRouter(
+                        //           text: 'Create New Student',
+                        //           fontsize: 12,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: cWhite,
+                        //         ),
+                        //       )),
+                        // )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      color: cWhite,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5, right: 5),
+                        child: Container(
+                          color: cWhite,
+                          height: 40,
+                          child: const Row(
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'No')),
+                              SizedBox(
+                                width: 02,
                               ),
-                            )
-                          ],
+                              Expanded(
+                                  flex: 2,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'ID')),
+                              SizedBox(
+                                width: 02,
+                              ),
+                              Expanded(
+                                  flex: 4,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'Name')),
+                              SizedBox(
+                                width: 02,
+                              ),
+                              Expanded(
+                                  flex: 4,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'E mail')),
+                              SizedBox(
+                                width: 02,
+                              ),
+                              Expanded(
+                                  flex: 3,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'Ph.NO')),
+                              SizedBox(
+                                width: 02,
+                              ),
+                              Expanded(
+                                  flex: 2,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'Class')),
+                              SizedBox(
+                                width: 02,
+                              ),
+                              Expanded(
+                                  flex: 3,
+                                  child: CatrgoryTableHeaderWidget(
+                                      headerTitle: 'Status')),
+                              SizedBox(
+                                width: 02,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ));
+                    Expanded(
+                      child: Container(
+                        height: 400,
+                        // width: 1200,
+                        decoration: BoxDecoration(
+                          color: cWhite,
+                          border: Border.all(color: cWhite),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5, left: 5),
+                          child: SizedBox(
+                            // width: 1100,
+                            child: StreamBuilder(
+                              stream: therapyController
+                                          .onClassWiseSearchofTm.value ==
+                                      true
+                                  ? server
+                                      .collection('SchoolListCollection')
+                                      .doc(UserCredentialsController.schoolId)
+                                      .collection(
+                                          UserCredentialsController.batchId!)
+                                      .doc(UserCredentialsController.batchId!)
+                                      .collection('classes')
+                                      .doc(Get.find<ClassController>()
+                                          .classDocID
+                                          .value)
+                                      .collection('Students')
+                                      .snapshots()
+                                  : server
+                                      .collection('SchoolListCollection')
+                                      .doc(UserCredentialsController.schoolId)
+                                      .collection('AllStudents')
+                                      .orderBy('studentName')
+                                      // .orderBy('admissionNumber')
+                                      .snapshots(),
+                              builder: (context, snaPS) {
+                                //      if (!snaPS.hasData || snaPS.data!.docs.isEmpty) {
+                                //   return const Center(
+                                //       child: Text(
+                                //     'No Sudents Created',
+                                //     style: TextStyle(
+                                //         fontSize: 15, fontWeight: FontWeight.w500),
+                                //   ));
+                                // }
+                                if (snaPS.hasData) {
+                                  return snaPS.data!.docs.isEmpty
+                                      ? const Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Please create Students",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ),
+                                        )
+                                      : ListView.separated(
+                                          itemBuilder: (context, index) {
+                                            final data = StudentModel.fromMap(
+                                                snaPS.data!.docs[index].data());
+                                            return GestureDetector(
+                                              onTap: () async {
+                                                therapyController
+                                                    .studentModelData
+                                                    .value = data;
+                                                await therapyController
+                                                    .addStudentinTherapySection(
+                                                        studentID: data.docid);
+                                                therapyController.ontapStudentTm
+                                                    .value = true;
+                                              },
+                                              child: AllTherapyStudentDataList(
+                                                data: data,
+                                                index: index,
+                                              ),
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return const SizedBox(
+                                              height: 02,
+                                            );
+                                          },
+                                          itemCount: snaPS.data!.docs.length);
+                                } else if (snaPS.data == null) {
+                                  return const LoadingWidget();
+                                } else {
+                                  return const LoadingWidget();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ));
   }
 
   // Future<void> searchStudentsByName(BuildContext context) async {

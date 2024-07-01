@@ -23,6 +23,7 @@ class AllTherapyStudentDataList extends StatelessWidget {
         color: index % 2 == 0
             ? const Color.fromARGB(255, 246, 246, 246)
             : Colors.blue[50],
+        border: Border.all(color: cred.withOpacity(0.2)),
       ),
       child: Row(
         children: [
@@ -161,7 +162,7 @@ class AllTherapyStudentDataList extends StatelessWidget {
                     'webassets/png/active.png',
                   ),
                 ),
-                 TextFontWidget(
+                 const TextFontWidget(
                   text: "  Active",
                   fontsize: 12,
                   overflow: TextOverflow.ellipsis,
