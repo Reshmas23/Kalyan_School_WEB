@@ -20,9 +20,13 @@ import 'package:vidyaveechi_website/view/widgets/notification_color/notification
 class TherapyController extends GetxController {
   RxBool ontapStudentTm = false.obs;
   RxBool therapyhome = true.obs;
+    Rxn<StudentModel> studentModelData = Rxn<StudentModel>();
   RxBool sendNotificationToUsers = false.obs;
   Rx<ButtonState> buttonstate = ButtonState.idle.obs;
   Rxn<TherapyModel> therapyModelData = Rxn<TherapyModel>();
+  
+  
+
   NotificationController notificationController =
       Get.put(NotificationController());
   final formKey = GlobalKey<FormState>();
@@ -313,9 +317,81 @@ class TherapyController extends GetxController {
             .doc(UserCredentialsController.batchId!)
             .collection("TherapyStudents")
             .doc(studentID)
-            .set(studentDeatil.toMap(), );
+            .set(studentDeatil.toMap(), SetOptions(merge: true))
+            .then((value) async {
+          await server
+              .collection("SchoolListCollection")
+              .doc(UserCredentialsController.schoolId)
+              .collection(UserCredentialsController.batchId!)
+              .doc(UserCredentialsController.batchId!)
+              .collection("TherapyStudents")
+              .doc(studentID)
+              .update({
+            "address": data?['houseName'] ?? "",
+            "city": data?['place'] ?? "",
+            "classID": data?['classId'] ?? "",
+            "className": await getStudetClassName(data?['classId']),
+            "dateofbirth": studentDOB,
+            "docid": studentID,
+            "parentContact": data?['parentPhoneNumber'] ?? "",
+            "parentDocId": data?['parentId'] ?? "",
+            "parentEmail": parentDetails.parentEmail ?? "",
+            "parentImage": parentDetails.profileImageURL ?? "",
+            "parentName": parentDetails.parentName ?? "",
+            "pincode": parentDetails.pincode ?? "",
+            "state": parentDetails.state ?? "",
+            "studentAdNo": data?['admissionNumber'] ?? "",
+            "studentAge": ageCalculate.toString(),
+            "studentGender": data?['gender'] ?? "",
+            "studentImage": data?['profileImageUrl'] ?? "",
+            "studentName": data?['studentName'] ?? "",
+          });
+        });
       });
-    } catch (e) {}
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  RxBool ontapAddTherapy = false.obs;
+  RxString selectedTherapyID = "".obs;
+  RxString selectedTherapyName = "".obs;
+  List<TherapyModel> allTherapiesList = [];
+  Future<List<TherapyModel>> fetchAllTherapy() async {
+    ontapAddTherapy.value = true;
+    final firebase = await server
+        .collection('SchoolListCollection')
+        .doc(UserCredentialsController.schoolId)
+        .collection(UserCredentialsController.batchId!)
+        .doc(UserCredentialsController.batchId!)
+        .collection('Therapy')
+        .get();
+
+    for (var i = 0; i < firebase.docs.length; i++) {
+      final list =
+          firebase.docs.map((e) => TherapyModel.fromMap(e.data())).toList();
+      allTherapiesList.add(list[i]);
+    }
+    return allTherapiesList;
+  }
+
+  Future<void> addTherapyForSelectedStudent(String studentID) async {
+    await server
+        .collection('SchoolListCollection')
+        .doc(UserCredentialsController.schoolId)
+        .collection(UserCredentialsController.batchId!)
+        .doc(UserCredentialsController.batchId!)
+        .collection('TherapyStudents')
+        .doc(studentID)
+        .collection('StudentTherapy')
+        .doc(selectedTherapyID.value)
+        .set({
+      'docid': selectedTherapyID.value,
+      'TherapyName': selectedTherapyName.value
+    }).then((value) async {
+      ontapAddTherapy.value = false;
+      showToast(msg: "${selectedTherapyName.value} Added");
+    });
   }
 }
 
