@@ -18,7 +18,7 @@ class PerStudentTherapyDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = studentController.studentModelData.value;
+  //  final data = studentController.studentModelData.value;
     examController.examId.value = " empty ";
 
     return Column(
