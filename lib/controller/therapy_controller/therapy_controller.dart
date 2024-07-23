@@ -315,8 +315,8 @@ class TherapyController extends GetxController {
           studentID: studentID,
           icon: SuccessNotifierSetup().icon,
           messageText: '''Dear Parent,
-      Your student, $studentName, attended therapy($theraphyName) from${thStartTime.value} to ${thEndTime.value}today for a duration of ${formatDurationvalue.value}.
-      Evaluation Note: ${evaluationNoteController.text}
+      Your student, $studentName, attended therapy ($theraphyName) from${thStartTime.value} to ${thEndTime.value} today for a duration of ${formatDurationvalue.value}.
+    Evaluation Note: ${evaluationNoteController.text}
         Thank you''',
           // ,
           headerText: "Therapy Update",
@@ -326,8 +326,8 @@ class TherapyController extends GetxController {
           parentID: parentID,
           icon: SuccessNotifierSetup().icon,
           messageText: '''Dear Parent,
-      Your student, $studentName, attended therapy($theraphyName) from${thStartTime.value} to ${thEndTime.value}today for a duration of ${formatDurationvalue.value}.
-      Evaluation Note: ${evaluationNoteController.text}
+      Your student, $studentName, attended therapy ($theraphyName) from${thStartTime.value} to ${thEndTime.value} today for a duration of ${formatDurationvalue.value}.
+    Evaluation Note: ${evaluationNoteController.text}
         Thank you''',
           // ,
           headerText: "Therapy Update",
