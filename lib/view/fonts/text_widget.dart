@@ -30,6 +30,7 @@ class TextFontWidget extends StatelessWidget {
         decoration: TextDecoration.none,
         letterSpacing: letterSpacing,
         fontSize: fontsize,
+        
         fontWeight: fontWeight,
         color:color ?? Colors.black,
       ),

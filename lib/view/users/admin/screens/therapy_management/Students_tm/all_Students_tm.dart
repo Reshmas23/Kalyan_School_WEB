@@ -22,8 +22,6 @@ class AllStudentInTherapy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => therapyController.ontapStudentTm.value == true
         ? StudentDetailsInTherapy()
-        // : therapyController.ontapCreateStudent.value == true
-        //     ? CreateStudent()
         : SingleChildScrollView(
             scrollDirection: ResponsiveWebSite.isMobile(context)
                 ? Axis.horizontal

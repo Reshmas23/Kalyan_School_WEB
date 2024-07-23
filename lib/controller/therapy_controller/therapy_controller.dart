@@ -1,7 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vidyaveechi_website/controller/class_controller/class_controller.dart';
@@ -9,23 +12,27 @@ import 'package:vidyaveechi_website/controller/notification_controller/notificat
 import 'package:vidyaveechi_website/model/parent_model/parent_model.dart';
 import 'package:vidyaveechi_website/model/student_model/student_model.dart';
 import 'package:vidyaveechi_website/model/therapy_model/therapy_model.dart';
+import 'package:vidyaveechi_website/model/therapy_student_model/add_sectionModel.dart';
 import 'package:vidyaveechi_website/model/therapy_student_model/student_therapyDetails.dart';
 import 'package:vidyaveechi_website/model/therapy_student_model/therapy_student_model.dart';
+import 'package:vidyaveechi_website/view/colors/colors.dart';
 import 'package:vidyaveechi_website/view/constant/const.dart';
+import 'package:vidyaveechi_website/view/constant/constant.validate.dart';
+import 'package:vidyaveechi_website/view/drop_down/therapy_list/studentAsign_TherapyList.dart';
+import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
 import 'package:vidyaveechi_website/view/utils/firebase/firebase.dart';
 import 'package:vidyaveechi_website/view/utils/shared_pref/user_auth/user_credentials.dart';
 import 'package:vidyaveechi_website/view/web_DashBoard/pages/video_management/presentation/pages/widgets/video_widgets.dart';
+import 'package:vidyaveechi_website/view/widgets/custom_showDilog/custom_showdilog.dart';
 import 'package:vidyaveechi_website/view/widgets/notification_color/notification_color_widget.dart';
 
 class TherapyController extends GetxController {
   RxBool ontapStudentTm = false.obs;
   RxBool therapyhome = true.obs;
-    Rxn<StudentModel> studentModelData = Rxn<StudentModel>();
+  Rxn<StudentModel> studentModelData = Rxn<StudentModel>();
   RxBool sendNotificationToUsers = false.obs;
   Rx<ButtonState> buttonstate = ButtonState.idle.obs;
   Rxn<TherapyModel> therapyModelData = Rxn<TherapyModel>();
-  
-  
 
   NotificationController notificationController =
       Get.put(NotificationController());
@@ -64,6 +71,269 @@ class TherapyController extends GetxController {
     studentName = '';
     studentAdNo = '';
     studentDocId = '';
+  }
+
+  RxString stAsignTherapyListValue = ''.obs;
+  RxString stAsignTherapyListValueName = ''.obs;
+  List<StudentAsignTheraphyModel> stAsignTherapyList = [];
+
+  Future<List<StudentAsignTheraphyModel>> fetchAsignStudentTherapyList() async {
+    print(Get.find<TherapyController>().studentModelData.value!.docid);
+    stAsignTherapyList.clear();
+    final firebase = await server
+        .collection('SchoolListCollection')
+        .doc(UserCredentialsController.schoolId)
+        .collection(UserCredentialsController.batchId!)
+        .doc(UserCredentialsController.batchId!)
+        .collection('TherapyStudents')
+        .doc(Get.find<TherapyController>().studentModelData.value!.docid)
+        .collection('StudentTherapy')
+        .get();
+
+    for (var i = 0; i < firebase.docs.length; i++) {
+      final list = firebase.docs
+          .map((e) => StudentAsignTheraphyModel.fromMap(e.data()))
+          .toList();
+      stAsignTherapyList.add(list[i]);
+    }
+    return stAsignTherapyList;
+  }
+
+  RxString thStartTime = ''.obs;
+  RxString thEndTime = ''.obs;
+
+  Future<void> showTimeInShowDialog(BuildContext context, int value) async {
+    TimeOfDay? selectedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (selectedTime != null) {
+      // Format the selected time to 12:00 PM format
+      final now = DateTime.now();
+      final selectedDateTime = DateTime(
+          now.year, now.month, now.day, selectedTime.hour, selectedTime.minute);
+      final formattedTime =
+          TimeOfDay.fromDateTime(selectedDateTime).format(context);
+
+      // Assign the formatted time to the observable variable
+      value == 1
+          ? thStartTime.value = formattedTime
+          : thEndTime.value =
+              formattedTime; // You can assign to thEndTime similarly
+    }
+  }
+
+  Duration? getDurationnvalue;
+  Future<String> getDuration(String startTime, String endTime) async {
+    // Define the time format
+    DateFormat format = DateFormat("h:mm a");
+
+    // Parse the start and end times
+    DateTime start = format.parse(startTime);
+    DateTime end = format.parse(endTime);
+
+    // Calculate the difference
+    Duration difference = end.difference(start);
+    print(difference);
+    getDurationnvalue = difference;
+    return getDurationnvalue.toString();
+  }
+
+  RxString formatDurationvalue = ''.obs;
+  Future<String> formatDuration(Duration duration) async {
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+
+    if (hours > 0 && minutes > 0) {
+      formatDurationvalue.value = '$hours hr $minutes min';
+      return '$hours hr $minutes min';
+    } else if (hours > 0) {
+      formatDurationvalue.value = '$hours hr';
+      return '$hours hr';
+    } else {
+      formatDurationvalue.value = '$minutes min';
+      return '$minutes min';
+    }
+  }
+
+  Future<void> getShowDilogueToAddSection(
+    BuildContext context,
+  ) async {
+    customShowDilogBox2(
+        context: context,
+        title: "Add section",
+        actiononTapfuction: () async {
+          getDuration(thStartTime.value, thEndTime.value).then((value) async {
+            formatDuration(getDurationnvalue!).then((value) async {
+              await addNewSection(
+                      stAsignTherapyListValue.value,
+                      stAsignTherapyListValueName.value,
+                      studentModelData.value!.docid,
+                      studentModelData.value!.studentName,
+                      studentModelData.value!.parentId)
+                  .then((value) async {
+                Get.back();
+                showToast(msg: "Done ✅");
+              });
+            });
+          });
+        },
+        children: [
+          Obx(() => SizedBox(
+                height: 300,
+                width: 500,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const TextFontWidget(
+                        text: "Select Therapy *", fontsize: 10),
+                    SizedBox(
+                      height: 40,
+                      width: 200,
+                      child: StudentAsignTherapyListDropDown(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const TextFontWidget(
+                                  text: "Select StartTime *", fontsize: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  showTimeInShowDialog(context, 1);
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: cBlack.withOpacity(0.4))),
+                                  child: Center(
+                                    child: Text(thStartTime.value),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const TextFontWidget(
+                                  text: "Select EndTime *", fontsize: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  showTimeInShowDialog(context, 2);
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: cBlack.withOpacity(0.4))),
+                                  child: Center(
+                                    child: Text(thEndTime.value),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: cBlack.withOpacity(0.4)),
+                        ),
+                        child: TextFormField(
+                          controller: evaluationNoteController,
+                          decoration: const InputDecoration(
+                            hintText: 'Evaluation : ',
+                            contentPadding: EdgeInsets.all(8.0),
+                            border:
+                                InputBorder.none, // Remove the default border
+                          ),
+                          expands: true,
+                          maxLines: null,
+                          minLines: null,
+                        ),
+                      ),
+                    ))
+                  ],
+                ),
+              ))
+        ],
+        doyouwantActionButton: true);
+  }
+
+  TextEditingController evaluationNoteController = TextEditingController();
+
+  Future<void> addNewSection(String theraphyID, String theraphyName,
+      String studentID, String studentName, String parentID) async {
+    final docid = const Uuid().v1();
+    AddSectionModel addSectionModel = AddSectionModel(
+      duration: formatDurationvalue.value,
+      thEndTime: thEndTime.value,
+      thStartTime: thStartTime.value,
+      docid: docid,
+      theraphyName: theraphyName,
+      theraphyId: theraphyID,
+      dateTime: DateTime.now().toString(),
+      evaluation: evaluationNoteController.text,
+    );
+    await server
+        .collection("SchoolListCollection")
+        .doc(UserCredentialsController.schoolId)
+        .collection(UserCredentialsController.batchId!)
+        .doc(UserCredentialsController.batchId!)
+        .collection("TherapyStudents")
+        .doc(studentID)
+        .collection("TherapyHistory")
+        .doc(dateConvert(DateTime.now()))
+        .set({'docid': dateConvert(DateTime.now()).toString()}).then(
+            (value) async {
+      await server
+          .collection("SchoolListCollection")
+          .doc(UserCredentialsController.schoolId)
+          .collection(UserCredentialsController.batchId!)
+          .doc(UserCredentialsController.batchId!)
+          .collection("TherapyStudents")
+          .doc(studentID)
+          .collection("TherapyHistory")
+          .doc(dateConvert(DateTime.now()))
+          .collection("AttendendTherapy")
+          .doc(theraphyID)
+          .set(addSectionModel.toMap(), SetOptions(merge: true));
+      await notificationController.userStudentNotification(
+          studentID: studentID,
+          icon: SuccessNotifierSetup().icon,
+          messageText: '''Dear Parent,
+      Your student, $studentName, attended therapy($theraphyName) from${thStartTime.value} to ${thEndTime.value}today for a duration of ${formatDurationvalue.value}.
+      Evaluation Note: ${evaluationNoteController.text}
+        Thank you''',
+          // ,
+          headerText: "Therapy Update",
+          whiteshadeColor: SuccessNotifierSetup().whiteshadeColor,
+          containerColor: SuccessNotifierSetup().containerColor);
+      await notificationController.userparentNotification(
+          parentID: parentID,
+          icon: SuccessNotifierSetup().icon,
+          messageText: '''Dear Parent,
+      Your student, $studentName, attended therapy($theraphyName) from${thStartTime.value} to ${thEndTime.value}today for a duration of ${formatDurationvalue.value}.
+      Evaluation Note: ${evaluationNoteController.text}
+        Thank you''',
+          // ,
+          headerText: "Therapy Update",
+          whiteshadeColor: SuccessNotifierSetup().whiteshadeColor,
+          containerColor: SuccessNotifierSetup().containerColor);
+    });
   }
 
   Future<void> createTherapy() async {
@@ -176,6 +446,7 @@ class TherapyController extends GetxController {
   }
 
   Future<List<TherapyModel>> fetchTherapyList() async {
+    allTherapyList.clear();
     final firebase = await server
         .collection('SchoolListCollection')
         .doc(UserCredentialsController.schoolId)
@@ -317,40 +588,136 @@ class TherapyController extends GetxController {
             .doc(UserCredentialsController.batchId!)
             .collection("TherapyStudents")
             .doc(studentID)
-            .set(studentDeatil.toMap(), SetOptions(merge: true))
+            .get()
             .then((value) async {
-          await server
-              .collection("SchoolListCollection")
-              .doc(UserCredentialsController.schoolId)
-              .collection(UserCredentialsController.batchId!)
-              .doc(UserCredentialsController.batchId!)
-              .collection("TherapyStudents")
-              .doc(studentID)
-              .update({
-            "address": data?['houseName'] ?? "",
-            "city": data?['place'] ?? "",
-            "classID": data?['classId'] ?? "",
-            "className": await getStudetClassName(data?['classId']),
-            "dateofbirth": studentDOB,
-            "docid": studentID,
-            "parentContact": data?['parentPhoneNumber'] ?? "",
-            "parentDocId": data?['parentId'] ?? "",
-            "parentEmail": parentDetails.parentEmail ?? "",
-            "parentImage": parentDetails.profileImageURL ?? "",
-            "parentName": parentDetails.parentName ?? "",
-            "pincode": parentDetails.pincode ?? "",
-            "state": parentDetails.state ?? "",
-            "studentAdNo": data?['admissionNumber'] ?? "",
-            "studentAge": ageCalculate.toString(),
-            "studentGender": data?['gender'] ?? "",
-            "studentImage": data?['profileImageUrl'] ?? "",
-            "studentName": data?['studentName'] ?? "",
-          });
+          if (value.data() == null) {
+            await server
+                .collection("SchoolListCollection")
+                .doc(UserCredentialsController.schoolId)
+                .collection(UserCredentialsController.batchId!)
+                .doc(UserCredentialsController.batchId!)
+                .collection("TherapyStudents")
+                .doc(studentID)
+                .set(studentDeatil.toMap())
+                .then((value) async {
+              await server
+                  .collection("SchoolListCollection")
+                  .doc(UserCredentialsController.schoolId)
+                  .collection(UserCredentialsController.batchId!)
+                  .doc(UserCredentialsController.batchId!)
+                  .collection("TherapyStudents")
+                  .doc(studentID)
+                  .update({
+                "address": data?['houseName'] ?? "",
+                "city": data?['place'] ?? "",
+                "classID": data?['classId'] ?? "",
+                "className": await getStudetClassName(data?['classId']),
+                "dateofbirth": studentDOB,
+                "docid": studentID,
+                "parentContact": data?['parentPhoneNumber'] ?? "",
+                "parentDocId": data?['parentId'] ?? "",
+                "parentEmail": parentDetails.parentEmail ?? "",
+                "parentImage": parentDetails.profileImageURL ?? "",
+                "parentName": parentDetails.parentName ?? "",
+                "pincode": parentDetails.pincode ?? "",
+                "state": parentDetails.state ?? "",
+                "studentAdNo": data?['admissionNumber'] ?? "",
+                "studentAge": ageCalculate.toString(),
+                "studentGender": data?['gender'] ?? "",
+                "studentImage": data?['profileImageUrl'] ?? "",
+                "studentName": data?['studentName'] ?? "",
+              });
+            });
+          } else {
+            if (value.data()!.containsKey('docid')) {
+              await server
+                  .collection("SchoolListCollection")
+                  .doc(UserCredentialsController.schoolId)
+                  .collection(UserCredentialsController.batchId!)
+                  .doc(UserCredentialsController.batchId!)
+                  .collection("TherapyStudents")
+                  .doc(studentID)
+                  .update({
+                "address": data?['houseName'] ?? "",
+                "city": data?['place'] ?? "",
+                "classID": data?['classId'] ?? "",
+                "className": await getStudetClassName(data?['classId']),
+                "dateofbirth": studentDOB,
+                "docid": studentID,
+                "parentContact": data?['parentPhoneNumber'] ?? "",
+                "parentDocId": data?['parentId'] ?? "",
+                "parentEmail": parentDetails.parentEmail ?? "",
+                "parentImage": parentDetails.profileImageURL ?? "",
+                "parentName": parentDetails.parentName ?? "",
+                "pincode": parentDetails.pincode ?? "",
+                "state": parentDetails.state ?? "",
+                "studentAdNo": data?['admissionNumber'] ?? "",
+                "studentAge": ageCalculate.toString(),
+                "studentGender": data?['gender'] ?? "",
+                "studentImage": data?['profileImageUrl'] ?? "",
+                "studentName": data?['studentName'] ?? "",
+              });
+            } else {
+              await server
+                  .collection("SchoolListCollection")
+                  .doc(UserCredentialsController.schoolId)
+                  .collection(UserCredentialsController.batchId!)
+                  .doc(UserCredentialsController.batchId!)
+                  .collection("TherapyStudents")
+                  .doc(studentID)
+                  .set(studentDeatil.toMap())
+                  .then((value) async {
+                await server
+                    .collection("SchoolListCollection")
+                    .doc(UserCredentialsController.schoolId)
+                    .collection(UserCredentialsController.batchId!)
+                    .doc(UserCredentialsController.batchId!)
+                    .collection("TherapyStudents")
+                    .doc(studentID)
+                    .update({
+                  "address": data?['houseName'] ?? "",
+                  "city": data?['place'] ?? "",
+                  "classID": data?['classId'] ?? "",
+                  "className": await getStudetClassName(data?['classId']),
+                  "dateofbirth": studentDOB,
+                  "docid": studentID,
+                  "parentContact": data?['parentPhoneNumber'] ?? "",
+                  "parentDocId": data?['parentId'] ?? "",
+                  "parentEmail": parentDetails.parentEmail ?? "",
+                  "parentImage": parentDetails.profileImageURL ?? "",
+                  "parentName": parentDetails.parentName ?? "",
+                  "pincode": parentDetails.pincode ?? "",
+                  "state": parentDetails.state ?? "",
+                  "studentAdNo": data?['admissionNumber'] ?? "",
+                  "studentAge": ageCalculate.toString(),
+                  "studentGender": data?['gender'] ?? "",
+                  "studentImage": data?['profileImageUrl'] ?? "",
+                  "studentName": data?['studentName'] ?? "",
+                });
+              });
+            }
+          }
         });
       });
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  TextEditingController studentDiscriptionController = TextEditingController();
+  Future<void> studentDiscriptionData({required String studentID}) async {
+    await server
+        .collection('SchoolListCollection')
+        .doc(UserCredentialsController.schoolId)
+        .collection(UserCredentialsController.batchId!)
+        .doc(UserCredentialsController.batchId!)
+        .collection('TherapyStudents')
+        .doc(studentID)
+        .update({
+      'studentTherapyDiscription': studentDiscriptionController.text
+    }).then((value) {
+      Get.back();
+    });
   }
 
   RxBool ontapAddTherapy = false.obs;
