@@ -9,6 +9,7 @@ class BlueContainerWidget extends StatelessWidget {
   double fontSize;
   FontWeight? fontWeight;
   Color color;
+    Color? fontColor;
   double? width;
 
   BlueContainerWidget(
@@ -16,6 +17,7 @@ class BlueContainerWidget extends StatelessWidget {
       required this.fontSize,
       required this.color,
       this.width,
+      this.fontColor,
       this.fontWeight,
       super.key});
 
@@ -31,7 +33,7 @@ class BlueContainerWidget extends StatelessWidget {
         child: TextFontWidgetRouter(
             text: title,
             fontsize: fontSize,
-            color: cWhite,
+            color: fontColor ?? cWhite,
             fontWeight: fontWeight),
       ),
     );

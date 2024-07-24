@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidyaveechi_website/controller/therapy_controller/therapy_controller.dart';
-import 'package:vidyaveechi_website/model/therapy_model/therapy_model.dart';
+import 'package:vidyaveechi_website/model/therapy_student_model/add_sectionModel.dart';
 
-class TherapyListDropDown extends StatelessWidget {
-  final String studentID; 
-  TherapyListDropDown({
-    Key? key, required this.studentID,
+class StudentAsignTherapyListDropDown extends StatelessWidget {
+  StudentAsignTherapyListDropDown({
+    Key? key, 
   }) : super(key: key);
 
   final therapyCntrl = Get.put(TherapyController());
@@ -16,7 +15,7 @@ class TherapyListDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: DropdownSearch<TherapyModel>(
+        child: DropdownSearch<StudentAsignTheraphyModel>(
       validator: (item) {
         if (item == null) {
           return "Required field";
@@ -26,24 +25,23 @@ class TherapyListDropDown extends StatelessWidget {
       },
       // autoValidateMode: AutovalidateMode.always,
       asyncItems: (value) {
-        therapyCntrl.allTherapiesList.clear();
+        therapyCntrl.stAsignTherapyList.clear();
 
-        return therapyCntrl.fetchTherapyList();
+        return therapyCntrl.fetchAsignStudentTherapyList();
       },
       itemAsString: (value) =>
-          ' ${value.therapyName}',
+          ' ${value.TherapyName}',
       onChanged: (value) async {
 
         if (value != null) {
-          therapyCntrl.selectedTherapyID.value = value.docid;
-          therapyCntrl.selectedTherapyName.value = value.therapyName;
-         await therapyCntrl.addTherapyForSelectedStudent(studentID);
+          therapyCntrl.stAsignTherapyListValue.value = value.docid;
+               therapyCntrl.stAsignTherapyListValueName.value = value.TherapyName;
         }
       },
       popupProps: const PopupProps.menu(
           searchFieldProps: TextFieldProps(
               decoration: InputDecoration(
-                  hintText: "Search Therapy", border: OutlineInputBorder())),
+                  hintText: "Select Therapy", border: OutlineInputBorder())),
           showSearchBox: true,
           searchDelay: Duration(microseconds: 10)),
       dropdownDecoratorProps: DropDownDecoratorProps(
