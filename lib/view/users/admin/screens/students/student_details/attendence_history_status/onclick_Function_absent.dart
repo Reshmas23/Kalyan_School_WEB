@@ -36,7 +36,7 @@ onClickFunctionOfAbsent(BuildContext context) {
                     text: 'Absent Days',
                     fontsize: 17,
                     fontWeight: FontWeight.bold,
-                  ),
+                  ), 
                 ],
               ),
               Container(
@@ -108,9 +108,9 @@ onClickFunctionOfAbsent(BuildContext context) {
                                       padding: EdgeInsets.only(left: 10.sp),
                                       child: Center(
                                           child: GooglePoppinsWidgets(
-                                            text: formattedDate,
+                                            text:"$formattedDate, Period No.${data['periodNo']}",
                                               // text: dateConvert(dateString),
-                                              fontsize: 14.sp)),
+                                              fontsize: 14)),
                                     ),
                                   ],
                                 ),
