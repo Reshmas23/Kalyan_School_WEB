@@ -457,4 +457,33 @@ class StudentController extends GetxController {
       }
     }
   }
+
+      Future<void> deleteStudents(StudentModel studentModel) async {
+    //  final stdd =studentModel.docid;
+    try {
+      await server
+          .collection('SchoolListCollection')
+          .doc(UserCredentialsController.schoolId)
+          .collection('AllStudents')
+          .doc(studentModel.docid)
+          .delete()
+          .then((value) { 
+               showToast(msg: 'Student Deleted From All Students');
+            log("Student deleted");
+          });
+            await server
+        .collection('SchoolListCollection')
+        .doc(UserCredentialsController.schoolId)
+        .collection('AllParents')
+        .doc(studentModel.parentId)
+        .delete()
+        .then((value) {
+      showToast(msg: 'Parent Deleted');
+      log("Parent deleted");
+    });
+    } catch (e) {
+      showToast(msg: 'Not Deleted');
+      log("Student deletion error:$e");
+    }
+  }
 }
