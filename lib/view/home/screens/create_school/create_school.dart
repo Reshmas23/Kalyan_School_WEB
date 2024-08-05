@@ -10,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:vidyaveechi_website/view/fonts/text_widget.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vidyaveechi_website/controller/add_Newschool/add_new_schhol.dart';
@@ -22,7 +22,6 @@ import 'package:vidyaveechi_website/view/home/screens/footer/widgets/Iconbackbut
 import 'package:vidyaveechi_website/view/widgets/responsive.dart';
 
 import '../../../colors/colors.dart';
-import '../../../fonts/fonts.dart';
 
 class SchoolProfile extends StatefulWidget {
   const SchoolProfile({super.key});
@@ -53,7 +52,7 @@ class _SchoolProfileState extends State<SchoolProfile> {
     if (isChecked) {
       // Checkbox is checked, perform necessary actions
       // e.g., save data, navigate to a new screen, etc.
-      print('Checkbox is checked!');
+      //print('Checkbox is checked!');
     }
   }
 
@@ -407,22 +406,26 @@ class _SchoolProfileState extends State<SchoolProfile> {
                               SizedBox(
                                 width: 150.w,
                               ),
-                              Text(
-                                'Hi ! VIDYAVEECHI ',
-                                style: ralewayStyle.copyWith(
-                                  fontSize: 30.0.w,
-                                  color: AppColors.whiteColor,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                              Text(
-                                '    Welcomes you',
-                                style: ralewayStyle.copyWith(
-                                  fontSize: 23.0.w,
-                                  color: AppColors.whiteColor,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
+                              TextFontWidget(text:'Hi ! VIDYAVEECHI ',fontsize: 30.0.w ,color:AppColors.whiteColor ,fontWeight:  FontWeight.w800,),
+                        
+                              // Text(
+                              //   'Hi ! VIDYAVEECHI ',
+                              //   style: ralewayStyle.copyWith(
+                              //     fontSize: 30.0.w,
+                              //     color: AppColors.whiteColor,
+                              //     fontWeight: FontWeight.w800,
+                              //   ),
+                              // ),
+                              TextFontWidget(text:'    Welcomes you',fontsize: 23.0.w ,color:AppColors.whiteColor ,fontWeight:  FontWeight.w800,),
+
+                              // Text(
+                              //   '    Welcomes you',
+                              //   style: ralewayStyle.copyWith(
+                              //     fontSize: 23.0.w,
+                              //     color: AppColors.whiteColor,
+                              //     fontWeight: FontWeight.w800,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -432,24 +435,25 @@ class _SchoolProfileState extends State<SchoolProfile> {
                         Center(
                           child: Container(
                             margin: EdgeInsets.only(bottom: 25.h),
-                            child: Text(
-                              'Create new school',
-                              style: ralewayStyle.copyWith(
-                                fontSize: 18.0.w,
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
+                            child: TextFontWidget(text:  'Create new school',fontsize: 18.0.w ,color:AppColors.whiteColor ,fontWeight:  FontWeight.w800,),
+                            // Text(
+                            //  'Create new school' ,
+                            //   style: ralewayStyle.copyWith(
+                            //     fontSize: 18.0.w,
+                            //     color: AppColors.whiteColor,
+                            //     fontWeight: FontWeight.w800,
+                            //   ),
+                            // ),
                           ),
                         ),
                         Flexible(
-                            child: SizedBox(
-                                height: 890.h,
+                            child: Container(
+                                height: 890.h,/////////////////////////////////////////////////////////////////
                                 width: 800.w,
                                 child: Center(
-                                  child: LottieBuilder.asset(
-                                      'webassets/lottie_files/22462-campus-library-school-building-maison-mocca-animation.json'),
-                                )))
+                                  child: Image.network('https://firebasestorage.googleapis.com/v0/b/vidya-veechi-8-feb-2024.appspot.com/o/leptonschools%2Fschool.png?alt=media&token=21f06fd1-6f06-487f-9ee4-abeecc2fcca2')
+                                )
+                                ))
                       ],
                     ),
                   ),
@@ -700,7 +704,7 @@ class _SchoolProfileState extends State<SchoolProfile> {
                                                         //isImageUpload.value = true;
                                                         UploadTask uploadTask =
                                                             FirebaseStorage
-                                                                .instance
+                                                                .instance//////got error on while debugging
                                                                 .ref()
                                                                 .child(
                                                                     "files/schooProfile/$uid")
@@ -1144,12 +1148,12 @@ showTermsandCondition(BuildContext context) async {
       Terms & Conditions
      
       
-      1.Lepton VIDYAVEECHI - The Tution App, all of its forms, whether it be featured on any of DuJo
+      1.Lepton VIDYAVEECHI - The Tution/School App, all of its forms, whether it be featured on any of DuJo
       mobile application or on the www.leptondujo.com online website services (“App”), is
       a product of Lepton Plus Communications (OPC) Private Ltd (“Lepton”).
      
       
-      2.By using the Lepton VIDYAVEECHI - The Tution App services, you are agreeing to be bound
+      2.By using the Lepton VIDYAVEECHI - The Tution/School App services, you are agreeing to be bound
       by the following terms and conditions.
 
       
